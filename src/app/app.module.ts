@@ -58,13 +58,13 @@ import { UpdateComponent } from './houses/update/update.component';
     CheckoutComponent,
 
     BListComponent,
-
     ProfileComponent,
     PasswordComponent,
     BNewComponent,
     BOldComponent,
     UserListComponent,
-    UpdateComponent
+    UpdateComponent,
+
 
   ],
   imports: [

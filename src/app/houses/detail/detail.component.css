@@ -1,0 +1,17 @@
+#box-reviews .review-item.ng-star-inserted {
+  display: grid;
+}
+
+.rdt-right a {
+  display: inline-block;
+  color: #ffffff;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: #dfa974;
+  padding: 14px 28px 13px;
+}
+
+.rdt-right .rating i {
+  color: #f5b917;
+}

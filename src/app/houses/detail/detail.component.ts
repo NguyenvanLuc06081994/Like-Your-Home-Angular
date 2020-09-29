@@ -70,7 +70,7 @@ export class DetailComponent implements OnInit {
     username: ''
   };
   detailForm: FormGroup;
-  dataService: any;
+
   userLogin;
   comments;
   customers;
@@ -93,7 +93,8 @@ export class DetailComponent implements OnInit {
               private authService: AuthService,
               private toast: ToastrService,
               private commentService: CommentService,
-              private imgService: ImageService) {
+              private imgService: ImageService,
+              private dataService: DataService) {
   }
 
   @ViewChild('dp') mydp: AngularMyDatePickerDirective;
@@ -178,7 +179,8 @@ export class DetailComponent implements OnInit {
     this.detailForm = this.fb.group({
       checkIn: [''],
       checkOut: [''],
-      order: ['']
+      order: [''],
+      description: ['']
     });
     // @ts-ignore
     this.imgService.getImageHouse(this.id).subscribe(result => {
@@ -224,7 +226,9 @@ export class DetailComponent implements OnInit {
 
   add(): any {
     const data = this.detailForm.value;
+    console.log(data);
     this.dataService.addData(data);
+    this.router.navigate(['/home/checkout/' + this.house.id])
   }
 
 

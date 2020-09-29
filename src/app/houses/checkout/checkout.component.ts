@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {HouseService} from '../../services/house.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerService} from '../../services/customer.service';
@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {DataService} from '../../services/data.service';
 import {ToastrService} from 'ngx-toastr';
+import {DecimalPipe, formatNumber} from '@angular/common';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class CheckoutComponent implements OnInit {
 
+  decimal_value: number = 5.123456789;
   house = {
     id: '',
     name: '',
@@ -54,6 +56,7 @@ export class CheckoutComponent implements OnInit {
   email;
   Adults = '1 Adults';
   totalPrice;
+  showPrice = 0;
 
   constructor(private houseService: HouseService,
               private router: Router,
@@ -63,24 +66,32 @@ export class CheckoutComponent implements OnInit {
               private fb: FormBuilder,
               private authService: AuthService,
               private dataService: DataService,
-              private toast: ToastrService) { }
+              private toast: ToastrService,
+              @Inject(LOCALE_ID) private locate: string) { }
 
   id = +this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
     const userLogin = this.authService.getUserLogin();
-    console.log(userLogin);
+
     this.formCheckout = this.fb.group({
       checkIn: [''],
       checkOut: [''],
-      order: ['', Validators.required],
+      order: ['', [Validators.required]],
       description: ['']
     });
-    this.getHouse();
-    this.dataService.dataShare.subscribe(result => {
-      this.formDetail = result;
 
+    this.dataService.dataSource.subscribe(result => {
+      this.formDetail = result;
+      console.log(this.formDetail);
+      // console.log(this.formDetail.checkOut1);
+      // console.log(this.formDetail.order1);
+      this.formCheckout = this.formDetail;
+      console.log(this.formCheckout);
     });
+    console.log(this.formCheckout);
+    this.getHouse();
+
   }
 
   // tslint:disable-next-line:typedef
@@ -98,11 +109,11 @@ export class CheckoutComponent implements OnInit {
       });
     });
   }
-  getCheckin()
+  get checkIn()
   {
     return this.formCheckout.get('checkIn');
   }
-  getCheckout()
+  get checkOut()
   {
     return this.formCheckout.get('checkOut');
   }
@@ -137,7 +148,7 @@ export class CheckoutComponent implements OnInit {
     console.log(this.bill);
     this.billService.addBill(this.bill).subscribe(data => {
     });
-    // console.log(this.house);
+    console.log(this.house);
     this.houseService.updateStatus(+this.house.id, this.house).subscribe(page => {
       this.router.navigate(['/home']);
       this.showSuccess();
@@ -174,9 +185,26 @@ export class CheckoutComponent implements OnInit {
       }
     }
   }
+
+  setPrice()
+  {
+    const checkIn = new Date(this.formCheckout.value.checkIn);
+
+    const checkOut = new Date(this.formCheckout.value.checkOut);
+
+    if(this.caculatePrice(checkIn,checkOut)>=0)
+    {
+      // @ts-ignore
+      this.showPrice = formatNumber(this.house.price * this.caculatePrice(checkIn,checkOut),this.locate);
+    }
+    else
+    {
+      this.showPrice =0;
+    }
+
+  }
   showSuccess()
   {
     this.toast.success('Checkout Success!!', 'Alert');
   }
-
 }

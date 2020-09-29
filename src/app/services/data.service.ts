@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 // @ts-ignore
 import any = jasmine.any;
 
@@ -8,13 +8,14 @@ import any = jasmine.any;
 })
 export class DataService {
   // @ts-ignore
-  dataSource  = new BehaviorSubject<any>();
-  dataShare = this.dataSource.asObservable();
+  dataSource  = new Subject();
+  // dataShare = this.dataSource.asObservable();
 
   constructor() {
   }
 
   addData(data): any {
+    console.log(data);
     this.dataSource.next(data);
   }
 

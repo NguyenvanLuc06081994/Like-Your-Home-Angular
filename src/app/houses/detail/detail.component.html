@@ -21,126 +21,135 @@
 <section class="room-details-section spad">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8">
 
-        <div class="room-details-item">
-          <owl-carousel-o [options]="customOptions">
-            <ng-container *ngFor="let image of images">
-              <ng-template carouselSlide>
-                <div class="slide">
-                  <img src="{{image.ref}}" alt="">
-                </div>
-              </ng-template>
-            </ng-container>
-          </owl-carousel-o>
-          <!--            <ng-template carouselSlide>-->
-          <!--              <div class="slide">-->
-          <!--                <img src="{{images[1].ref}}" alt="">-->
-          <!--              </div>-->
-          <!--            </ng-template>-->
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="room-details-item ">
 
-          <!--          <img src="{{images[0].ref}}" alt="">-->
 
-          <div class="room-details-item">
-            <!--          <img src="{{img.ref}}" alt="" style="width: 200px; height: 300px " >-->
 
-            <div class="rd-text">
-              <div class="rd-title">
-                <h3>{{house.name}}</h3>
-                <div class="rdt-right">
-                  <div class="rating">
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star-half_alt"></i>
+              <!--            <ng-template carouselSlide>-->
+              <!--              <div class="slide">-->
+              <!--                <img src="{{images[1].ref}}" alt="">-->
+              <!--              </div>-->
+              <!--            </ng-template>-->
+
+              <!--          <img src="{{images[0].ref}}" alt="">-->
+
+              <div class="room-details-item">
+                <!--          <img src="{{img.ref}}" alt="" style="width: 200px; height: 300px " >-->
+
+                <div class="rd-text">
+                  <div class="rd-title">
+                    <h3>{{house.name}}</h3>
                   </div>
-                  <div *ngIf="userLogin.id == house.id">
-                    <a [routerLink]="['/home/update',house.id]"> Update</a>
-                  </div>
-                  <div *ngIf="userLogin.id != house.id">
-                    <a (click)="booking()">Booking Now</a>
-                  </div>
+                  <h2>{{house.price}} VNĐ<span>/night</span></h2>
+                  <table>
+                    <tbody>
+                    <tr>
+                      <td class="r-o">Type Home:</td>
+                      <td>{{house.type_house}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Type Room:</td>
+                      <td>{{house.type_room}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Bedroom:</td>
+                      <td>{{house.bedroom}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Bathroom:</td>
+                      <td>{{house.bathroom}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Address:</td>
+                      <td>{{house.address}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Status:</td>
+                      <td>{{house.status}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Host:</td>
+                      <td>{{customer.username}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Phone:</td>
+                      <td>{{customer.phone}}</td>
+                    </tr>
+                    <tr>
+                      <td class="r-o">Services:</td>
+                      <td>Wifi, Television, Bathroom,...</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <p class="f-para">{{house.description}}</p>
+                  <div class="rdt-right">
+                    <div class="rating">
+                      <i class="icon_star"></i>
+                      <i class="icon_star"></i>
+                      <i class="icon_star"></i>
+                      <i class="icon_star"></i>
+                      <i class="icon_star-half_alt"></i>
+                    </div>
+                    <div *ngIf="userLogin.id == house.id">
+                      <a [routerLink]="['/home/update',house.id]"> Update</a>
+                    </div>
+                    <div *ngIf="userLogin.id != house.id">
+                      <a (click)="booking()">Booking Now</a>
+                    </div>
 
+                  </div>
                 </div>
               </div>
-              <h2>{{house.price}} VNĐ<span>/night</span></h2>
-              <table>
-                <tbody>
-                <tr>
-                  <td class="r-o">Type Home:</td>
-                  <td>{{house.type_house}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Type Room:</td>
-                  <td>{{house.type_room}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Bedroom:</td>
-                  <td>{{house.bedroom}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Bathroom:</td>
-                  <td>{{house.bathroom}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Address:</td>
-                  <td>{{house.address}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Status:</td>
-                  <td>{{house.status}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Host:</td>
-                  <td>{{customer.username}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Phone:</td>
-                  <td>{{customer.phone}}</td>
-                </tr>
-                <tr>
-                  <td class="r-o">Services:</td>
-                  <td>Wifi, Television, Bathroom,...</td>
-                </tr>
-                </tbody>
-              </table>
-              <p class="f-para">{{house.description}}</p>
 
-            </div>
-          </div>
-
-          <div class="rd-reviews">
-            <h4>Reviews</h4>
-            <div class="review-item" *ngFor="let comment of comments">
-              <div *ngIf="comment.house_id == house.id">
-                <ng-container *ngFor="let customer of customers">
-                  <div *ngIf="customer.id == comment.user_id">
-                    <div class="ri-pic">
-                      <img src="{{customer.image}}" alt="">
+              <div class="rd-reviews" id="box-reviews">
+                <h4>Reviews</h4>
+                <div class="review-item" *ngFor="let comment of comments">
+                  <div *ngIf="comment.house_id == house.id">
+                    <ng-container *ngFor="let customer of customers">
+                      <div *ngIf="customer.id == comment.user_id">
+                        <div class="ri-pic">
+                          <img src="{{customer.image}}" alt="">
+                        </div>
+                      </div>
+                    </ng-container>
+                    <div class="ri-text">
+                      <span>27 Aug 2019</span>
+                      <div class="rating">
+                        <i class="icon_star"></i>
+                        <i class="icon_star"></i>
+                        <i class="icon_star"></i>
+                        <i class="icon_star"></i>
+                        <i class="icon_star"></i>
+                      </div>
+                      <ng-container *ngFor="let customer of customers">
+                        <div *ngIf="customer.id == comment.user_id">
+                          <h5>{{customer.username}}</h5>
+                        </div>
+                      </ng-container>
+                      <p>{{comment.content}}</p>
                     </div>
                   </div>
-                </ng-container>
-                <div class="ri-text">
-                  <span>27 Aug 2019</span>
-                  <div class="rating">
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                  </div>
-                  <ng-container *ngFor="let customer of customers">
-                    <div *ngIf="customer.id == comment.user_id">
-                      <h5>{{customer.username}}</h5>
-                    </div>
-                  </ng-container>
-                  <p>{{comment.content}}</p>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col-md-6">
+            <owl-carousel-o [options]="customOptions">
+              <ng-container *ngFor="let image of images">
+                <ng-template carouselSlide>
+                  <div class="slide">
+                    <img src="{{image.ref}}" alt="" style="width: 690px; width: 100%">
+                  </div>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
           </div>
+        </div>
+
           <div *ngIf="userLogin.id != house.id">
             <div class="review-add">
               <h4>Add Review</h4>
@@ -173,45 +182,10 @@
               </form>
             </div>
           </div>
-
-        </div>
-        <div class="col-lg-4">
-          <div>
-            <h3 class="mb-5">Your Reservation</h3>
-            <form [formGroup]="detailForm" (ngSubmit)="add()">
-              <div class="check-date">
-                <label for="date-in">Check In:</label>
-                <input angular-mydatepicker [options]="myDatePickerOptions"
-                       class="form-control" name="mydate" id="date-in"
-                       placeholder="DD/MM/YYYY" formControlName="checkIn"
-                       #dp="angular-mydatepicker" (click)="disableUntil()"
-                />
-
-              </div>
-              <div class="check-date">
-                <label for="date-out">Check Out:</label>
-                <input class="form-control" type="date" formControlName="checkOut" id="date-out">
-              </div>
-              <div class="select-option form-group">
-                <label for="guest">Guests:</label>
-
-                <select class="form-control" id="guest" formControlName="order">
-                  <option value="1" [selected]="[]">1 Adults</option>
-
-                  <option value="2">2 Adults</option>
-                  <option value="3">3 Adults</option>
-                  <option value="4">4 Adults</option>
-                </select>
-              </div>
-              <div class="select-option form-group">
-                <label for="room">House:</label>
-                <select class="form-control" id="room">
-                  <option value="">5 Room</option>
-                </select>
-              </div>
-              <button class="btn btn-success" [routerLink]="['/home/checkout',house.id]">Check Availability</button>
-            </form>
-          </div>
+<!--        angular-mydatepicker [options]="myDatePickerOptions"-->
+<!--        class="form-control" name="mydate" id="date-in"-->
+<!--        placeholder="DD/MM/YYYY" formControlName="checkIn"-->
+<!--        #dp="angular-mydatepicker" (click)="disableUntil()"-->
         </div>
       </div>
 

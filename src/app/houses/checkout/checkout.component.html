@@ -26,12 +26,12 @@
         <form [formGroup]="formCheckout" (ngSubmit)="addBill()">
           <div class="check-date">
             <label for="date-in">Check In:</label>
-            <input type="date" class="date-input" id="date-in" formControlName="checkIn">
+            <input type="date" class="date-input" id="date-in" formControlName="checkIn" (change)="setPrice()">
 
           </div>
           <div class="check-date">
             <label for="date-out">Check Out:</label>
-            <input type="date" class="date-input" id="date-out" formControlName="checkOut">
+            <input type="date" class="date-input" id="date-out" formControlName="checkOut" (change)="setPrice()">
           </div>
          <div class="check-date">
            <label>Your Full Name:</label>
@@ -48,12 +48,11 @@
           </div>
           <div class="select-option">
             <label for="guest">Ordered:</label>
-            <select id="guest"  formControlName="order">
-              <option value="" [selected]="[]">Choose</option>
-              <option value="1 Adults">1 Adults</option>
-              <option value="2 Adults">2 Adults</option>
-              <option value="3 Adults">3 Adults</option>
-              <option value="4 Adults">4 Adults</option>
+            <select id="guest"  formControlName="order" class="form-control">
+              <option value="1">1 Adults</option>
+              <option value="2">2 Adults</option>
+              <option value="3">3 Adults</option>
+              <option value="4">4 Adults</option>
             </select>
             <div *ngIf="order.touched && order.invalid">
               <div *ngIf="order.errors.required">
@@ -62,8 +61,11 @@
             </div>
           </div>
           <div class="check-date">
-            <label>ToTal Price</label>
-                <strong>{{totalPrice}}</strong>
+            <label>ToTal Price: </label>
+            <div>
+              <strong>{{showPrice}} VND</strong>
+            </div>
+
           </div>
 
           <button type="submit" [disabled]="formCheckout.invalid">Booking</button>
